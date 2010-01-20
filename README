@@ -1,0 +1,34 @@
+TVSlurp
+=======
+(c) Chris Targett 2010 chris@xlevus.net
+
+A small script that polls a TVRage iCal file, and then searches 
+newzbin for aired shows. Found reports are then bookmarked.
+
+It was designed to remove the need to store favourite shows in 
+multiple places and to remove the dependency on an external daemon.
+
+Requirements
+------------
+ * iCalendar - http://pypi.python.org/pypi/icalendar
+
+Setup
+-----
+Settings are defined in an ini file. The default location is 
+`~/tvslurp/config` but this can be changed with the -c flag.
+
+For an example configuration see `example_config`.
+
+Automation can be achieved through a task scheduler such as cron or
+windows task scheduler.
+
+Known Issues
+------------
+ * iCalendar doesn't honour time zones
+
+Notes
+-----
+A record of recorded episodes is stored in a plaintext file defined
+in the config. There is currently no automatic purging of old entries
+so this will need to be done manually.
+
