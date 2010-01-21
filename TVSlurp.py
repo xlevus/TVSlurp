@@ -62,6 +62,7 @@ class TVSlurp(object):
             self.processed_urls = [ln[:-1] for ln in self.processed_url_file.xreadlines()]    
         
             self.search_params = config._sections['search']
+            del self.search_params['__name__']
         except ConfigParser.NoOptionError, e:
             logging.error("Invalid Config: %s" % e)
             exit(1)
@@ -74,6 +75,7 @@ class TVSlurp(object):
         params['username'] = self.newzbin_username
         params['password'] = self.newzbin_password
 
+        print urlencode(params)
         req = urlopen('http://www.newzbin.com/api/reportfind/', urlencode(params))
 
         for line in req.readlines():
@@ -106,7 +108,7 @@ class TVSlurp(object):
             season = int(match.group('season'))
             episode = int(match.group('episode'))
 
-            return self.search_newzbin("%s %sx%s" % (show, season, episode))
+            return self.search_newzbin("%s %sx%02d" % (show, season, episode))
         except ValueError: # This should never happen. Best to be safe
             return None
 
