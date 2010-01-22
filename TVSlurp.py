@@ -75,7 +75,6 @@ class TVSlurp(object):
         params['username'] = self.newzbin_username
         params['password'] = self.newzbin_password
 
-        print urlencode(params)
         req = urlopen('http://www.newzbin.com/api/reportfind/', urlencode(params))
 
         for line in req.readlines():
