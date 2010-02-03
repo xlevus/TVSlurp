@@ -15,16 +15,37 @@ Requirements
 Setup
 -----
 Settings are defined in an ini file. The default location is 
-`~/tvslurp/config` but this can be changed with the -c flag.
+`~/.tvslurp/config` but this can be changed with the -c flag.
 
 For an example configuration see `example_config`.
 
 Automation can be achieved through a task scheduler such as cron or
 windows task scheduler.
 
+Rewrites
+--------
+In some situations, the name of the show posted to newzbin is
+different to the one in the TVRage calendar. 
+
+The [rewrites] section in your TVSlurp config can be used to
+rewrite episode titles from the calendar. The format is as follows:
+
+    <key> = <search term> | <replace term>
+
+n.b. Each line in key needs to be unique. 
+
+e.g.
+    1 = Newswipe With Charlie Brooker | Newswipe
+will turn:
+    Newswipe With Charlie Brooker - 1x01
+into:
+    Newswipe - 1x01
+
+
 Known Issues
 ------------
  * iCalendar doesn't honour time zones
+ * Specials such as "Lost - S06-Special" will not be found
 
 Notes
 -----

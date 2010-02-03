@@ -15,3 +15,7 @@ u_show_passworded = 0
 u_url_posts_only = 1
 u_nfo_posts_only = 1
 
+[rewrites]
+# A list of replacement rules. See README for more
+1 = Some term to search for | Some term to replace with
+

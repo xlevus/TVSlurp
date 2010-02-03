@@ -63,6 +63,13 @@ class TVSlurp(object):
         
             self.search_params = config._sections['search']
             del self.search_params['__name__']
+
+            self.rewrites = []
+            if config.has_section('rewrites'):
+                for i,rewrite in config.items('rewrites'):
+                    search, replace = rewrite.split('|')
+                    self.rewrites.append((search.strip(), replace.strip()))
+
         except ConfigParser.NoOptionError, e:
             logging.error("Invalid Config: %s" % e)
             exit(1)
@@ -101,6 +108,8 @@ class TVSlurp(object):
             logging.error('Failed to bookmark report.')
     
     def find_episode(self, title):
+        for search,replace in self.rewrites:
+            title = title.replace(search,replace)
         try:
             match = self.episode_re.match(title)
             show = match.group('show')
@@ -108,8 +117,8 @@ class TVSlurp(object):
             episode = int(match.group('episode'))
 
             return self.search_newzbin("%s %sx%02d" % (show, season, episode))
-        except ValueError: # This should never happen. Best to be safe
-            return None
+        except (AttributeError, ValueError): # This should never happen. Best to be safe
+            return self.search_newzbin(title)
 
     def load_ical(self):
         logging.debug("Loading iCal from url %s" % self.ical_url)
