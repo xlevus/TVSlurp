@@ -45,7 +45,12 @@ into:
 Known Issues
 ------------
  * iCalendar doesn't honour time zones
+
  * Specials such as "Lost - S06-Special" will not be found
+
+ * Latin-1 characters in show names (Such as GRΣΣK) will cause an error.
+   This can be resolved by using a Rewrite. e.g:
+      1 = GRΣΣK | GREEK
 
 Notes
 -----

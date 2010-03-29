@@ -67,7 +67,7 @@ class TVSlurp(object):
             self.rewrites = []
             if config.has_section('rewrites'):
                 for i,rewrite in config.items('rewrites'):
-                    search, replace = rewrite.split('|')
+                    search, replace = rewrite.decode('utf-8').split('|')
                     self.rewrites.append((search.strip(), replace.strip()))
 
         except ConfigParser.NoOptionError, e:
@@ -108,6 +108,7 @@ class TVSlurp(object):
             logging.error('Failed to bookmark report.')
     
     def find_episode(self, title):
+        print title
         for search,replace in self.rewrites:
             title = title.replace(search,replace)
         try:
